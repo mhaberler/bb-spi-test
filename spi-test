@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# for /dev/spidev1.0
+set -x
+config-pin overlay cape-universal
+config-pin P9.17 spi #spi0_cs0  CS   green
+config-pin P9.18 spi #spi0_d1   MISO yellow
+config-pin P9.21 spi #spi0_d0   MOSI orange
+config-pin P9.22 spi #spi0_clk  CLOCK red
+
+
+# send message on spidev1.0
+./spidev_fdx -v -m 10 /dev/spidev1.0
+
+# unbind device driver
+#echo -n spi1.0 >/sys/bus/spi/drivers/spidev/unbind
+
+# bind again
+#echo -n spi1.0 >/sys/bus/spi/drivers/spidev/bind
